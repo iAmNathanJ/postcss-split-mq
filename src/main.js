@@ -1,7 +1,9 @@
-const postcss = require('postcss');
-const { join } = require('path');
-const { write } = require('../lib/io');
-const { processOptions, constructTarget, createUpdater } = require('../lib/helpers');
+require('babel-polyfill');
+
+import postcss from 'postcss';
+import { join } from 'path';
+import { write } from './lib/io';
+import { processOptions, constructTarget, createUpdater } from './lib/helpers';
 
 process.on('unhandledRejection', console.error);
 

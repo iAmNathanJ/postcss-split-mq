@@ -1,7 +1,7 @@
 import test from 'ava';
 import postcss from 'postcss';
 import postcssSplitMq from '../src/main';
-import { read, write } from '../lib/io';
+import { read, write } from '../src/lib/io';
 
 test('it returns a css string', async t => {
   const css = await read('./test/fixtures/test.css');

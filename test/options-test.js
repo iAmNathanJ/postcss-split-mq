@@ -1,7 +1,7 @@
 import test from 'ava';
 import postcss from 'postcss';
 import postcssSplitMq from '../src/main';
-import { read } from '../lib/io';
+import { read } from '../src/lib/io';
 
 test.skip('can be configured with a single object', async t => {
   const opts = {

@@ -4,7 +4,7 @@
   "description": "Postcss plugin to split media queries into separate files",
   "main": "dist/main.js",
   "scripts": {
-    "build": "babel --require babel-register src/main.js -o dist/main.js",
+    "build": "babel src --out-dir dist",
     "test": "ava",
     "prepublish": "npm test && npm run build"
   },
@@ -14,8 +14,7 @@
     ],
     "babel": "inherit",
     "require": [
-      "babel-register",
-      "babel-polyfill"
+      "babel-register"
     ]
   },
   "keywords": [
@@ -32,13 +31,19 @@
   "devDependencies": {
     "ava": "^0.22.0",
     "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "postcss": "^6.0.13",
     "postcss-media-query-parser": "^0.2.3"
+  },
+  "engines": {
+    "node": ">=6.10"
   }
 }
