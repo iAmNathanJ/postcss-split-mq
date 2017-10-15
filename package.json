@@ -1,6 +1,6 @@
 {
   "name": "postcss-split-mq",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Postcss plugin to split media queries into separate files",
   "main": "dist/main.js",
   "scripts": {
