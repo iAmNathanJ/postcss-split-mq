@@ -1,0 +1,44 @@
+{
+  "name": "postcss-split-mq",
+  "version": "0.1.0",
+  "description": "Postcss plugin to split media queries into separate files",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "babel --require babel-register src/main.js -o dist/main.js",
+    "test": "ava",
+    "prepublish": "npm test && npm run build"
+  },
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "babel": "inherit",
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ]
+  },
+  "keywords": [
+    "postcss",
+    "plugin",
+    "media",
+    "query",
+    "queries",
+    "split",
+    "performance"
+  ],
+  "author": "Nathan Jacobs",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "postcss": "^6.0.13",
+    "postcss-media-query-parser": "^0.2.3"
+  }
+}

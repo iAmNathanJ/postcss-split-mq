@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #222;
+}
+
+@media (min-width: 300px) {
+  margin: 0;
+}
+
+@media (min-width: 400px) {
+  padding: 0;
+}
+
+@media (min-width: 500px) {
+  margin: 0;
+}
+
+@media (min-width: 600px) {
+  padding: 0;
+}
