@@ -26,9 +26,7 @@ const plugin = postcss.plugin('postcss-split-mq', options => {
         return write(join(outpath, name), result.toString());
       })
     );
-
-    return RESULT;
-  };
+  }
 });
 
 export default plugin;

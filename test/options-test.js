@@ -1,11 +1,12 @@
 import test from 'ava';
+import tempy from 'tempy';
 import { processOptions } from '../src/lib/options';
 
 test('`files` will be converted to an array if it is passed as a single object', t => {
   const options = processOptions({
-    outpath: './test/build',
+    outpath: tempy.directory(),
     files: {
-      name: 'one.css',
+      name: 'some.css',
       match: [
         /some-regex/,
         /some-other-regex/
@@ -17,9 +18,9 @@ test('`files` will be converted to an array if it is passed as a single object',
 
 test('`match` will be converted to an array if it is passed as a single regex', t => {
   const options = processOptions({
-    outpath: './test/build',
+    outpath: tempy.directory(),
     files: [{
-      name: 'one.css',
+      name: 'some.css',
       match: /some-regex/
     }]
   });

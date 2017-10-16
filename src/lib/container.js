@@ -4,12 +4,16 @@ export const createContainer = option => {
   return { ...option, result: postcss.root() };
 };
 
-export const createUpdaterFn = containers => rule => {
+export const createUpdaterFn = containers => atRule => {
+  const killRules = [];
   containers.forEach(container => {
     container.match.forEach(regex => {
-      if (regex.test(rule.params)) {
-        container.result.append(rule.remove());
+      const previouslyFound = false;
+      if (!previouslyFound && regex.test(atRule.params)) {
+        container.result.append(atRule.clone());
+        killRules.push(atRule);
       }
     });
   });
+  killRules.forEach(rule => rule.remove());
 };
