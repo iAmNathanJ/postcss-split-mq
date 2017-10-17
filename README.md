@@ -1,6 +1,6 @@
 # postcss-split-mq
 
-[![Build Status](https://semaphoreci.com/api/v1/iamnathanj/postcss-split-mq/branches/master/badge.svg)](https://semaphoreci.com/iamnathanj/postcss-split-mq)
+[![Build Status](https://semaphoreci.com/api/v1/iamnathanj/postcss-split-mq/branches/master/badge.svg)](https://semaphoreci.com/iamnathanj/postcss-split-mq) [![Maintainability](https://api.codeclimate.com/v1/badges/c0e76f3f63757fb5e224/maintainability)](https://codeclimate.com/github/iAmNathanJ/postcss-split-mq/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/c0e76f3f63757fb5e224/test_coverage)](https://codeclimate.com/github/iAmNathanJ/postcss-split-mq/test_coverage)
 
 PostCSS plugin to split specific media queries into separate files.
 
