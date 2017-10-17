@@ -1,6 +1,6 @@
 import test from 'ava';
 import postcss from 'postcss';
-import { createContainer, createUpdaterFn } from '../src/lib/container';
+import { createContainer, createUpdaterFn } from '../dist/lib/container';
 
 test('createContainer returns an object with an added `result` property', t => {
   const container = createContainer({ foo: true });

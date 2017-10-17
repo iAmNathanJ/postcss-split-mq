@@ -1,6 +1,6 @@
 import test from 'ava';
 import tempy from 'tempy';
-import { processOptions } from '../src/lib/options';
+import { processOptions } from '../dist/lib/options';
 
 test('`files` will be converted to an array if it is passed as a single object', t => {
   const options = processOptions({

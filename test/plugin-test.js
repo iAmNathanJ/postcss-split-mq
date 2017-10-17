@@ -1,10 +1,10 @@
 import test from 'ava';
 import postcss from 'postcss';
 import tempy from 'tempy';
-import splitMQ from '../src/main';
+import splitMQ from '../dist/main';
 import { existsSync as fileExists } from 'fs';
 import { exec } from 'shelljs';
-import { read, write } from '../src/lib/io';
+import { read, write } from '../dist/lib/io';
 
 let CSS;
 

@@ -10,15 +10,12 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "test": "ava",
-    "prepublish": "npm test && npm run build"
+    "dev": "run-p 'build -- -w' 'test -- -w'",
+    "prepublish": "npm run build && npm test"
   },
   "ava": {
     "files": [
       "test/*.js"
-    ],
-    "babel": "inherit",
-    "require": [
-      "babel-register"
     ]
   },
   "keywords": [
@@ -41,6 +38,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0",
+    "npm-run-all": "^4.1.1",
     "shelljs": "^0.7.8",
     "tempy": "^0.2.1"
   },
