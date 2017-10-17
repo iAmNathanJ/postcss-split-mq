@@ -1,5 +1,7 @@
 # postcss-split-mq
 
+[![Build Status](https://semaphoreci.com/api/v1/iamnathanj/postcss-split-mq/branches/master/badge.svg)](https://semaphoreci.com/iamnathanj/postcss-split-mq)
+
 PostCSS plugin to split specific media queries into separate files.
 
 ## Usage
