@@ -71,7 +71,7 @@ and:
 
 You can create multiple `files` with multiple `match` criteria per file. Media queries are captured for a given file if _any_ of its match expressions are found.
 
-e.g.
+THIS EXAMPLE WILL BE EXPANDED
 ```js
 options = {
   outpath: './',
