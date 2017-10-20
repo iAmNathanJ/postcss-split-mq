@@ -61,7 +61,7 @@ test('it creates the specified files', async t => {
   t.true(fileExists(`${dir}/this-will-exist.css`));
 });
 
-test('it places found media queries in the specified files', async t => {
+test('it places captured media queries in the specified files', async t => {
   const dir = tempy.directory();
   const opts = {
     outpath: dir,
@@ -77,7 +77,7 @@ test('it places found media queries in the specified files', async t => {
   t.true(output.includes('min-width: 300px'));
 });
 
-test('it will repeat a found media query in multiple files', async t => {
+test('it will repeat a captured media query in multiple files', async t => {
   const dir = tempy.directory();
   const opts = {
     outpath: dir,
@@ -100,4 +100,21 @@ test('it will repeat a found media query in multiple files', async t => {
     file1.includes('min-width: 300px') &&
     file2.includes('min-width: 300px')
   );
+});
+
+test('it will skip queries if `skip` expressions are configured', async t => {
+  const dir = tempy.directory();
+  const opts = {
+    outpath: dir,
+    files: [{
+      name: 'skip.css',
+      match: /min-width:\s*9999px/,
+      skip: /min-width:\s*1111px/
+    }]
+  };
+  await postcss([splitMQ(opts)]).process(CSS);
+
+  const output = await read(`${dir}/skip.css`);
+
+  t.false(output.includes('min-width: 9999px'));
 });

@@ -1,5 +1,4 @@
-require('babel-polyfill');
-
+import 'babel-polyfill';
 import postcss from 'postcss';
 import { join } from 'path';
 import { write } from './lib/io';

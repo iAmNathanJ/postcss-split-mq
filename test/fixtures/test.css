@@ -7,7 +7,7 @@ body {
 }
 
 @media (min-width: 300px) {
-  margin: 0;
+  padding: 0;
 }
 
 @media (min-width: 400px) {
@@ -15,9 +15,13 @@ body {
 }
 
 @media (min-width: 500px) {
-  margin: 0;
+  padding: 0;
 }
 
 @media (min-width: 600px) {
+  padding: 0;
+}
+
+@media (min-width: 1111px), (min-width: 9999px) {
   padding: 0;
 }

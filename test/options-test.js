@@ -1,28 +1,44 @@
 import test from 'ava';
 import tempy from 'tempy';
+import { join } from 'path';
 import { processOptions } from '../dist/lib/options';
 
-test('`files` will be converted to an array if it is passed as a single object', t => {
+test('`options.outpath` will be cwd if not specified', t => {
+  const options = processOptions();
+  t.is(options.outpath, process.cwd());
+});
+
+test('`options.outpath` can be set', t => {
+  const options = processOptions({
+    outpath: './css'
+  });
+  t.is(options.outpath, join(process.cwd(), 'css'));
+});
+
+test('`options.files` cast to an array', t => {
   const options = processOptions({
     outpath: tempy.directory(),
-    files: {
-      name: 'some.css',
-      match: [
-        /some-regex/,
-        /some-other-regex/
-      ]
-    }
+    files: {}
   });
   t.true(Array.isArray(options.files));
 });
 
-test('`match` will be converted to an array if it is passed as a single regex', t => {
+test('`files.match` cast to an array', t => {
   const options = processOptions({
     outpath: tempy.directory(),
     files: [{
-      name: 'some.css',
       match: /some-regex/
     }]
   });
   t.true(Array.isArray(options.files[0].match));
+});
+
+test('`files.skip` cast to an array', t => {
+  const options = processOptions({
+    outpath: tempy.directory(),
+    files: [{
+      skip: /some-regex/
+    }]
+  });
+  t.true(Array.isArray(options.files[0].skip));
 });

@@ -15,6 +15,7 @@
     "prepublish": "run-s build test"
   },
   "ava": {
+    "verbose": true,
     "files": [
       "test/*.js"
     ]

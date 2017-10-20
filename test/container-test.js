@@ -20,8 +20,8 @@ test('createUpdaterFn creates a function', t => {
 
 test('updater function updates a set of containers', t => {
   const containers = [
-    createContainer({ match: [/300px/] }),
-    createContainer({ match: [/print/] })
+    createContainer({ match: [/300px/], skip: [] }),
+    createContainer({ match: [/print/], skip: [] })
   ];
   const updateContainers = createUpdaterFn(containers);
   const root = postcss.parse('@media (min-width: 300px) {} @media print {}');
