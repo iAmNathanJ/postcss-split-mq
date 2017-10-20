@@ -33,7 +33,8 @@ const options = {
   files: [
     {
       name: 'wide.css',
-      match: /min-width:\s*1024px/
+      match: /min-width:\s*1024px/,
+      skip: /min-width:\s*480px/
     }
   ]
 };
@@ -81,11 +82,13 @@ options = {
       match: [
         /min-width:\s*(640px|40r?em)/,
         /max-width:\s*(800px|50r?em)/
-      ]
+      ],
+      skip: /min-width:\s*480px/
     },
     {
       name: 'wide.css',
-      match: /min-width:\s*1024px/
+      match: /min-width:\s*1024px/,
+      skip: /min-width:\s*480px/
     }
   ]
 };
