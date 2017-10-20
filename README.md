@@ -83,7 +83,7 @@ options = {
         /min-width:\s*(640px|40r?em)/,
         /max-width:\s*(800px|50r?em)/
       ],
-      skip: /min-width:\s*480px/
+      skip: /min-width:\s*(480px|30r?em)/
     },
     {
       name: 'wide.css',
