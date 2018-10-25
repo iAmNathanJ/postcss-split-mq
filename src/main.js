@@ -16,7 +16,7 @@ const plugin = postcss.plugin('postcss-split-mq', options => {
     const updateContainers = createUpdaterFn(containers);
 
     // do the deed
-    CSS.walkAtRules('media', updateContainers);
+    CSS.walkAtRules(options.queryType || 'media', updateContainers);
 
     // write mq files
     await Promise.all(
