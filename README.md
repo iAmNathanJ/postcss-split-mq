@@ -93,4 +93,22 @@ options = {
 
 ---
 
+You can also provide a `queryType` in the options, to split by other queries too. If no `queryType` is provided, the default will be `media`.
+
+e.g.
+```js
+options = {
+  outpath: './',
+  queryType: 'supports',
+  files: [
+    {
+      name: 'supports.css',
+      match: /(.*?)/
+    }
+  ]
+};
+```
+
+---
+
 This can be improved. Contributions are welcome. Create an issue if you see a problem or to ask a question.
