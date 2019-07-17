@@ -12,7 +12,7 @@
     "test": "xo && ava",
     "dev": "run-p \"build -- -w\" \"test -- -w\"",
     "ci": "nyc --reporter=lcov ava",
-    "prepublish": "run-s build test"
+    "prepare": "run-s build test"
   },
   "ava": {
     "verbose": true,
