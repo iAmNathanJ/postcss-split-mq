@@ -10,7 +10,7 @@
   "scripts": {
     "build": "babel src --out-dir dist -s inline",
     "test": "ava",
-    "dev": "run-p 'build -- -w' 'test -- -w'",
+    "dev": "run-p \"build -- -w\" \"test -- -w\"",
     "ci": "nyc --reporter=lcov ava",
     "prepublish": "run-s build test"
   },
