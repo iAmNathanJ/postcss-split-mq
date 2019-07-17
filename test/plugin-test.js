@@ -1,10 +1,9 @@
+import { existsSync as fileExists } from 'fs';
 import test from 'ava';
 import postcss from 'postcss';
 import tempy from 'tempy';
 import splitMQ from '../dist/main';
-import { existsSync as fileExists } from 'fs';
-import { exec } from 'shelljs';
-import { read, write } from '../dist/lib/io';
+import { read } from '../dist/lib/io';
 
 let CSS;
 
@@ -84,7 +83,7 @@ test('it will repeat a captured media query in multiple files', async t => {
     files: [{
       name: 'file1.css',
       match: /min-width:\s*300px/
-    },{
+    }, {
       name: 'file2.css',
       match: /min-width:\s*300px/
     }]
@@ -130,7 +129,7 @@ test('it will unwrap specified media queries when the option specified', async t
         /min-width:\s*400px/
       ],
       unwrap: true
-    },{
+    }, {
       name: 'file2.css',
       match: /./,
       skip: [

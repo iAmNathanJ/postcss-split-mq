@@ -7,30 +7,34 @@ export const createContainer = option => {
 
 export const matchAll = (arr, str) => {
   return arr.filter(regex => {
-    return regex.test(str)
+    return regex.test(str);
   }).length === arr.length;
 };
 
 export const matchAny = (arr, str) => {
-  return !!arr.find(regex => {
-    return regex.test(str)
-  });
+  return Boolean(arr.find(regex => {
+    return regex.test(str);
+  }));
 };
 
 export const createUpdaterFn = containers => atRule => {
   const killRules = [];
   containers.forEach(({ skip, match, unwrap, result }) => {
-    if (matchAny(skip, atRule)) return;
+    if (matchAny(skip, atRule)) {
+      return;
+    }
+
     if (matchAny(match, atRule)) {
       const newAtRule = atRule.clone();
       result.append(newAtRule);
       if (unwrap) {
-        newAtRule.raws.before = atRule.raws.before
-        newAtRule.raws.after = atRule.raws.after
+        newAtRule.raws.before = atRule.raws.before;
+        newAtRule.raws.after = atRule.raws.after;
         if ((unwrap === true) || matchAny(unwrap, atRule)) {
           unwrapHelper(newAtRule);
         }
       }
+
       killRules.push(atRule);
     }
   });
