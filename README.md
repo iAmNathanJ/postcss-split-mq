@@ -97,9 +97,13 @@ This can be improved. Contributions are welcome. Create an issue if you see a pr
 
 ## Options
 
+### `atRule`
+
+Specify a custom name by passing `string` or `RegExp`, e.g. `/^(media|element)$/`. Defaults to `media`.
+
 ### `outpath`
 
-Output path
+Output path.
 
 ### `files`
 
@@ -194,7 +198,7 @@ div {
 }
 ```
 
-And you can include them like this:
+And can be included like this:
 
 ```html
 <link rel="stylesheet" href="main.css">

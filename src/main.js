@@ -16,16 +16,16 @@ const plugin = postcss.plugin('postcss-split-mq', options => {
     const updateContainers = createUpdaterFn(containers);
 
     // do the deed
-    CSS.walkAtRules('media', updateContainers);
+    CSS.walkAtRules(options.atRule, updateContainers);
 
     // write mq files
     await Promise.all(
       containers.map(container => {
         const { outpath = options.outpath, name, result } = container;
         return write(join(outpath, name), result.toString());
-      })
+      });
     );
-  }
+  };
 });
 
 export default plugin;

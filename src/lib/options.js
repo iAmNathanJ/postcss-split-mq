@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 
 export const processOptions = (options = {}) => {
+  options.atRule = options.atRule || 'media';
   options.outpath = options.outpath ? resolve(options.outpath) : process.cwd();
   options.files = castToArray(options.files);
   options.files.forEach(file => {
