@@ -94,3 +94,110 @@ options = {
 ---
 
 This can be improved. Contributions are welcome. Create an issue if you see a problem or to ask a question.
+
+## Options
+
+### `outpath`
+
+Output path
+
+### `files`
+
+An array of objects specifying particular split files.
+
+#### `name`
+
+Output filename.
+
+#### `match`
+
+A `RegExp` or array of alternative `RegExp`s to test media queries against. If pass, the media query will be moved to the file.
+
+#### `skip`
+
+Inverserd `match`: if media query passes, won't be included in the file.
+
+#### `unwrap`
+
+If set to `true`, all media queries will get unwrapped. Accepts also `RegExp`(s), similarly to `match` option, to limit the unwrapped queries.
+
+The following config:
+
+```js
+options = {
+  outpath: './',
+  files: [
+    {
+      name: 'medium.css',
+      match: [
+        /min-width:\s*600px/,
+        unwrap: true
+      ]
+    },
+    {
+      name: 'large.css',
+      skip: /min-width:\s*600px/,
+      unwrap: /min-width:\s*960px/
+    }
+  ]
+}
+```
+
+With the following input CSS:
+
+```css
+div {
+  color: white;
+}
+
+@media screen and (min-width: 600px) {
+  div {
+    color: green;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  div {
+    color: red;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  div {
+    color: black;
+  }
+}
+```
+
+Will give:
+
+```css
+/* main.css */
+div {
+  color: white;
+}
+
+/* medium.css */
+div {
+  color: green;
+}
+
+/* large.css */
+div {
+  color: red;
+}
+
+@media screen and (min-width: 1200px) {
+  div {
+    color: black;
+  }
+}
+```
+
+And you can include them like this:
+
+```html
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="medium.css" media="screen and (min-width: 600px)">
+<link rel="stylesheet" href="large.css" media="screen and (min-width: 960px)">
+```

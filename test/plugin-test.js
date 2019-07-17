@@ -118,3 +118,56 @@ test('it will skip queries if `skip` expressions are configured', async t => {
 
   t.false(output.includes('min-width: 9999px'));
 });
+
+test('it will unwrap specified media queries when the option specified', async t => {
+  const dir = tempy.directory();
+  const opts = {
+    outpath: dir,
+    files: [{
+      name: 'file1.css',
+      match: [
+        /min-width:\s*300px/,
+        /min-width:\s*400px/
+      ],
+      unwrap: true
+    },{
+      name: 'file2.css',
+      match: /./,
+      skip: [
+        /min-width:\s*300px/,
+        /min-width:\s*400px/
+      ],
+      unwrap: /min-width:\s*500px/
+    }]
+  };
+  await postcss([splitMQ(opts)]).process(CSS);
+
+  const [ file1, file2 ] = await Promise.all([
+    read(`${dir}/file1.css`),
+    read(`${dir}/file2.css`)
+  ]);
+
+  t.false(
+    file1.includes('@media') ||
+    file1.includes('min-width'),
+    'file 1 should not include any media query'
+  );
+
+  t.false(
+    file2.includes('min-width: 300px') ||
+    file2.includes('min-width: 400px'),
+    'file 2 should not include skipped media query'
+  );
+
+  t.false(
+    file2.includes('min-width: 500px'),
+    'file 2 should not include unwrapped media query'
+  );
+
+  t.true(
+    file2.includes('min-width: 600px') &&
+    file2.includes('min-width: 1111px') &&
+    file2.includes('min-width: 9999px'),
+    'file 2 should include non-unwrapped media queries'
+  );
+});

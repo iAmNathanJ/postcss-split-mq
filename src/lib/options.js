@@ -6,6 +6,9 @@ export const processOptions = (options = {}) => {
   options.files.forEach(file => {
     file.match = castToArray(file.match);
     file.skip = castToArray(file.skip);
+    if (file.unwrap !== true) {
+      file.unwrap = castToArray(file.unwrap);
+    }
   });
   return options;
 };

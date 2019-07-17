@@ -1,4 +1,5 @@
 import postcss from 'postcss';
+import unwrapHelper from 'postcss-unwrap-helper';
 
 export const createContainer = option => {
   return { ...option, result: postcss.root() };
@@ -18,10 +19,18 @@ export const matchAny = (arr, str) => {
 
 export const createUpdaterFn = containers => atRule => {
   const killRules = [];
-  containers.forEach(({ skip, match, result }) => {
+  containers.forEach(({ skip, match, unwrap, result }) => {
     if (matchAny(skip, atRule)) return;
     if (matchAny(match, atRule)) {
-      result.append(atRule.clone());
+      const newAtRule = atRule.clone();
+      result.append(newAtRule);
+      if (unwrap) {
+        newAtRule.raws.before = atRule.raws.before
+        newAtRule.raws.after = atRule.raws.after
+        if ((unwrap === true) || matchAny(unwrap, atRule)) {
+          unwrapHelper(newAtRule);
+        }
+      }
       killRules.push(atRule);
     }
   });
