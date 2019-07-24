@@ -12,7 +12,7 @@ test.before(async () => {
 });
 
 test('it returns a css string', async t => {
-  const { css } = await postcss([splitMQ]).process(CSS);
+  const { css } = await postcss([splitMQ]).process(CSS, { from: undefined });
   t.is(typeof css, 'string');
 });
 
@@ -24,7 +24,7 @@ test('it strips media queries', async t => {
       match: /min-width:\s*300px/
     }]
   };
-  const { css } = await postcss([splitMQ(opts)]).process(CSS);
+  const { css } = await postcss([splitMQ(opts)]).process(CSS, { from: undefined });
   t.false(css.includes('min-width: 300px'));
 });
 
@@ -39,7 +39,7 @@ test('it strips multiple media queries', async t => {
       ]
     }]
   };
-  const { css } = await postcss([splitMQ(opts)]).process(CSS);
+  const { css } = await postcss([splitMQ(opts)]).process(CSS, { from: undefined });
   t.false(
     css.includes('min-width: 300px') &&
     css.includes('min-width: 600px')
@@ -55,7 +55,7 @@ test('it creates the specified files', async t => {
       match: /min-width:\s*300px/
     }]
   };
-  await postcss([splitMQ(opts)]).process(CSS);
+  await postcss([splitMQ(opts)]).process(CSS, { from: undefined });
 
   t.true(fileExists(`${dir}/this-will-exist.css`));
 });
@@ -69,7 +69,7 @@ test('it places captured media queries in the specified files', async t => {
       match: /min-width:\s*300px/
     }]
   };
-  await postcss([splitMQ(opts)]).process(CSS);
+  await postcss([splitMQ(opts)]).process(CSS, { from: undefined });
 
   const output = await read(`${dir}/300.css`);
 
@@ -88,7 +88,7 @@ test('it will repeat a captured media query in multiple files', async t => {
       match: /min-width:\s*300px/
     }]
   };
-  await postcss([splitMQ(opts)]).process(CSS);
+  await postcss([splitMQ(opts)]).process(CSS, { from: undefined });
 
   const [ file1, file2 ] = await Promise.all([
     read(`${dir}/file1.css`),
@@ -111,7 +111,7 @@ test('it will skip queries if `skip` expressions are configured', async t => {
       skip: /min-width:\s*1111px/
     }]
   };
-  await postcss([splitMQ(opts)]).process(CSS);
+  await postcss([splitMQ(opts)]).process(CSS, { from: undefined });
 
   const output = await read(`${dir}/skip.css`);
 
@@ -139,7 +139,7 @@ test('it will unwrap specified media queries when the option specified', async t
       unwrap: /min-width:\s*500px/
     }]
   };
-  await postcss([splitMQ(opts)]).process(CSS);
+  await postcss([splitMQ(opts)]).process(CSS, { from: undefined });
 
   const [ file1, file2 ] = await Promise.all([
     read(`${dir}/file1.css`),
