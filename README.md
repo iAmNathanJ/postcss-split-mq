@@ -205,3 +205,15 @@ And can be included like this:
 <link rel="stylesheet" href="medium.css" media="screen and (min-width: 600px)">
 <link rel="stylesheet" href="large.css" media="screen and (min-width: 960px)">
 ```
+
+#### `additive`
+
+If set to `true`, the subsequent bundles specified by the `files` entries will have the previous bundle rules. In other words, this will produce standalone per-viewport bundles.
+
+Then you can include the stylesheets like this:
+
+```html
+<link rel="stylesheet" href="main.css" media="screen and (max-width: 599px)">
+<link rel="stylesheet" href="medium.css" media="screen and (min-width: 600px) and (max-width: 959px)">
+<link rel="stylesheet" href="large.css" media="screen and (min-width: 960px)">
+```

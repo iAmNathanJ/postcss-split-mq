@@ -7,16 +7,28 @@ import { createContainer, createUpdaterFn } from './lib/container';
 
 process.on('unhandledRejection', console.error);
 
+const walk = (CSS, { additive, atRule }, callback) => {
+  if (additive) {
+    return CSS.each(node => {
+      if (node.type !== 'atrule' || atRule.test(node.name)) {
+        callback(node);
+      }
+    });
+  } else {
+    return CSS.walkAtRules(atRule, callback);
+  }
+}
+
 const plugin = postcss.plugin('postcss-split-mq', options => {
   options = processOptions(options);
 
   return async function (CSS) {
     // Setup containers for mq files
     const containers = options.files.map(createContainer);
-    const updateContainers = createUpdaterFn(containers);
+    const updateContainers = createUpdaterFn(containers, options.additive);
 
     // Do the deed
-    CSS.walkAtRules(options.atRule, updateContainers);
+    walk(CSS, options, updateContainers);
 
     // Write mq files
     await Promise.all(

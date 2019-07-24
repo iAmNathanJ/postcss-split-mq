@@ -1,5 +1,5 @@
 import postcss from 'postcss';
-import unwrapHelper from 'postcss-unwrap-helper';
+import unwrapNode from 'postcss-unwrap-helper';
 
 export const createContainer = option => {
   return { ...option, result: postcss.root() };
@@ -17,25 +17,31 @@ export const matchAny = (arr, str) => {
   }));
 };
 
-export const createUpdaterFn = containers => atRule => {
-  const killRules = [];
-  containers.forEach(({ skip, match, unwrap, result }) => {
-    if (matchAny(skip, atRule)) {
-      return;
-    }
+export const createContainerMatchesFn = node => (skip, match) => !matchAny(skip, node) && matchAny(match, node);
 
-    if (matchAny(match, atRule)) {
-      const newAtRule = atRule.clone();
-      result.append(newAtRule);
-      if (unwrap) {
-        newAtRule.raws.before = atRule.raws.before;
-        newAtRule.raws.after = atRule.raws.after;
-        if ((unwrap === true) || matchAny(unwrap, atRule)) {
-          unwrapHelper(newAtRule);
+export const createUpdaterFn = (containers, additive) => node => {
+  const killRules = [];
+  const containerMatches = createContainerMatchesFn(node);
+  containers.forEach(({ name, skip, match, unwrap, result }, currentIndex) => {
+    const isAtRule = node.type === 'atrule';
+    const atRuleMatches = isAtRule && containerMatches(skip, match);
+    const additiveMatches = isAtRule && additive &&
+      !containers.some(({ skip, match }, index) => (index > currentIndex) && containerMatches(skip, match));
+    if (!isAtRule || atRuleMatches || additiveMatches) {
+      const newNode = node.clone();
+      result.append(newNode);
+      newNode.raws.before = node.raws.before;
+      newNode.raws.after = node.raws.after;
+
+      if (unwrap && isAtRule) {
+        if ((unwrap === true) || matchAny(unwrap, node)) {
+          unwrapNode(newNode);
         }
       }
 
-      killRules.push(atRule);
+      if (atRuleMatches) {
+        killRules.push(node);
+      }
     }
   });
   killRules.forEach(rule => rule.remove());
