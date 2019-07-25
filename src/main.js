@@ -14,10 +14,10 @@ const walk = (CSS, { additive, atRule }, callback) => {
         callback(node);
       }
     });
-  } else {
-    return CSS.walkAtRules(atRule, callback);
   }
-}
+
+  return CSS.walkAtRules(atRule, callback);
+};
 
 const plugin = postcss.plugin('postcss-split-mq', options => {
   options = processOptions(options);

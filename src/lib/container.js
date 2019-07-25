@@ -22,7 +22,7 @@ export const createContainerMatchesFn = node => (skip, match) => !matchAny(skip,
 export const createUpdaterFn = (containers, additive) => node => {
   const killRules = [];
   const containerMatches = createContainerMatchesFn(node);
-  containers.forEach(({ name, skip, match, unwrap, result }, currentIndex) => {
+  containers.forEach(({ skip, match, unwrap, result }, currentIndex) => {
     const isAtRule = node.type === 'atrule';
     const atRuleMatches = isAtRule && containerMatches(skip, match);
     const additiveMatches = isAtRule && additive &&
