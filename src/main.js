@@ -9,10 +9,8 @@ process.on('unhandledRejection', console.error);
 
 const walk = (CSS, { additive, atRule }, callback) => {
   if (additive) {
-    return CSS.each(node => {
-      if (node.type !== 'atrule' || atRule.test(node.name)) {
-        callback(node);
-      }
+    return CSS.each((node, index) => {
+      callback(node, index, node.type !== 'atrule' || !atRule.test(node.name));
     });
   }
 

@@ -19,21 +19,20 @@ export const matchAny = (arr, str) => {
 
 export const createContainerMatchesFn = node => (skip, match) => !matchAny(skip, node) && matchAny(match, node);
 
-export const createUpdaterFn = (containers, additive) => node => {
+export const createUpdaterFn = (containers, additive) => (node, index, force = false) => {
   const killRules = [];
   const containerMatches = createContainerMatchesFn(node);
   containers.forEach(({ skip, match, unwrap, result }, currentIndex) => {
-    const isAtRule = node.type === 'atrule';
-    const atRuleMatches = isAtRule && containerMatches(skip, match);
-    const additiveMatches = isAtRule && additive &&
+    const atRuleMatches = !force && containerMatches(skip, match);
+    const additiveMatches = !force && additive &&
       !containers.some(({ skip, match }, index) => (index > currentIndex) && containerMatches(skip, match));
-    if (!isAtRule || atRuleMatches || additiveMatches) {
+    if (force || atRuleMatches || additiveMatches) {
       const newNode = node.clone();
       result.append(newNode);
       newNode.raws.before = node.raws.before;
       newNode.raws.after = node.raws.after;
 
-      if (unwrap && isAtRule) {
+      if (unwrap && !force) {
         if ((unwrap === true) || matchAny(unwrap, node)) {
           unwrapNode(newNode);
         }
