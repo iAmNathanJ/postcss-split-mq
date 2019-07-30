@@ -24,7 +24,7 @@ test('updater function updates a set of containers', t => {
     createContainer({ match: [/print/], skip: [] })
   ];
   const updateContainers = createUpdaterFn(containers);
-  const root = postcss.parse('@media (min-width: 300px) {} @media print {}');
+  const root = postcss.parse('@media (min-width: 300px) {} @media print {}', { from: undefined });
   const rule1 = root.first;
   const rule2 = root.last;
 

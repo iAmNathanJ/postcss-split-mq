@@ -9,10 +9,10 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "babel src --out-dir dist -s inline",
-    "test": "ava",
-    "dev": "run-p 'build -- -w' 'test -- -w'",
+    "test": "xo && ava",
+    "dev": "run-p \"build -- -w\" \"test -- -w\"",
     "ci": "nyc --reporter=lcov ava",
-    "prepublish": "run-s build test"
+    "prepare": "run-s build test"
   },
   "ava": {
     "verbose": true,
@@ -20,6 +20,16 @@
       "test/*.js"
     ]
   },
+  "xo": {
+    "space": true,
+    "rules": {
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "array-bracket-spacing": 0
+    }
+  }, 
   "keywords": [
     "postcss-plugin",
     "postcss",
@@ -43,13 +53,15 @@
     "npm-run-all": "^4.1.1",
     "nyc": "^11.2.1",
     "shelljs": "^0.7.8",
-    "tempy": "^0.2.1"
+    "tempy": "^0.2.1",
+    "xo": "^0.24.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "postcss": "^6.0.13",
-    "postcss-media-query-parser": "^0.2.3"
+    "postcss-media-query-parser": "^0.2.3",
+    "postcss-unwrap-helper": "^0.1.0"
   },
   "engines": {
     "node": ">=6.10"

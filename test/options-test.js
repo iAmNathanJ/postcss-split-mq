@@ -1,6 +1,6 @@
+import { join } from 'path';
 import test from 'ava';
 import tempy from 'tempy';
-import { join } from 'path';
 import { processOptions } from '../dist/lib/options';
 
 test('`options.outpath` will be cwd if not specified', t => {
